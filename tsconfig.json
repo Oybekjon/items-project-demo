@@ -3,6 +3,21 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "baseUrl": "./",
+    "paths": {
+      "@@api/*": [
+        "src/app/api/*"
+      ],
+      "@@services/*": [
+        "src/app/services/*"
+      ],
+      "@@components/*": [
+        "src/app/components/*"
+      ],
+      "@@root/*": [
+        "src/*"
+      ]
+    },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
