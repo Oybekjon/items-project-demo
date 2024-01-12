@@ -10,10 +10,18 @@
                 <label for="validationDefault04">Password</label>
                 <input type="password" class="form-control" id="validationDefault04" placeholder="Password" required>
               </div>
-  
+              
             </div>
             
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div >
+              <span>If you have not registered. </span>
+              <a  [routerLink]="['/register']">Register</a>
+            </div>
+
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+
           </form>       
     </div>
 </div>
