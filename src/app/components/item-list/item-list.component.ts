@@ -2,19 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Item } from '../../services/models/item';
 import { ItemService } from '../../services/item.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, FormsModule],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.less'] // Corrected to styleUrls
 })
 export class ItemListComponent implements OnInit {
 
   public items: Item[] = [];
+  public idToDelete: number | null = null;
 
-  constructor(private itemService: ItemService) {} // Injecting service through constructor
+  constructor(private itemService: ItemService) { } // Injecting service through constructor
 
   public ngOnInit(): void {
     this.itemService.getItems().subscribe(
@@ -27,4 +29,28 @@ export class ItemListComponent implements OnInit {
       }
     );
   }
+
+
+ 
+
+  public deleteItem(): void {
+    if (typeof this.idToDelete === "number" && this.idToDelete > 0) {
+      this.itemService.deleteItem(this.idToDelete).subscribe({
+        next: response => {
+          console.log("Delete successful:", response);
+          // You can handle the response here, e.g., update the UI or a list
+        },
+        error: err => {
+          console.error("Error during delete:", err);
+          // Handle the error here
+        }
+      });
+    } else {
+      console.log("Invalid idToDelete value");
+    }
+  }
+  
+
+
+
 }
