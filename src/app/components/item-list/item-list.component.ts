@@ -3,11 +3,15 @@ import { RouterModule } from '@angular/router';
 import { Item } from '../../services/models/item';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+
+
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [RouterModule, FormsModule],
+  imports: [RouterModule, FormsModule,CommonModule],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.less'] // Corrected to styleUrls
 })
@@ -19,6 +23,11 @@ export class ItemListComponent implements OnInit {
   constructor(private itemService: ItemService) { } // Injecting service through constructor
 
   public ngOnInit(): void {
+    this.getItems();
+  }
+
+  getItems()
+  {
     this.itemService.getItems().subscribe(
       (data) => {
         this.items = data;
