@@ -19,7 +19,7 @@ export class ItemApiService{
     }
     
     public addItem(addItem : ItemModel ): Observable<any> {
-        return this.client.post("https://localhost:7274/api/Item/CreateNew" ,addItem );
+        return this.client.post("https://localhost:7274/api/Item/CreateNew", addItem, { headers: { 'Content-Type': 'application/json' } })
     }
 
 }

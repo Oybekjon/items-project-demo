@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ItemService } from '../../services/item.service';
+import { Item } from '../../services/models/item';
 
 @Component({
   selector: 'app-add-item',
@@ -12,17 +13,23 @@ import { ItemService } from '../../services/item.service';
 })
 export class AddItemComponent {
 
-
-  public itemType: number = 0;
-  public itemName: string = "";
-  public itemDate: Date | null = null;
-
+  public item : Item = new Item();
 
   constructor(private itemService: ItemService) { } 
 
   public addItem() : void{
-    this.itemService.addItem(this.itemName, this.itemType, this.itemDate);
+    this.item.itemDate = this.item.itemDate;
+    this.item.itemName = this.item.itemName;
+    this.item.itemType = this.item.itemType;
+    this.itemService.addItem(this.item).subscribe({
+      next: response => {
+        console.log("Added successful: ", response);
+        // You can handle the response here, e.g., update the UI or a list
+      },
+      error: err => {
+        console.error("Error during delete:", err);
+        // Handle the error here
+      }
+    });;
   }
-
-
 }

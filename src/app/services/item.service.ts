@@ -18,15 +18,10 @@ export class ItemService {
         return this.itemApiService.deleteItem(itemId);
     }
 
-    public addItem(itemName:string, itemType:number , itemDate:Date | null): Observable<any> {
+    public addItem(item : Item): Observable<any> {
 
-        const item = new Item();
-        item.itemName = itemName;
-        item.itemType = itemType;
-        item.itemDate = itemDate;
-        
         return this.itemApiService.addItem({
-            itemDate: item.itemDate?.toISOString() || "",
+            itemDate: item.itemDate,
             itemId: item.itemId,
             itemName: item.itemName,
             itemType: item.itemType
@@ -37,7 +32,7 @@ export class ItemService {
     public toModel(apiModel: ItemModel): Item {
         const newItem = new Item();
         newItem.itemId = apiModel.itemId;
-        newItem.itemDate = new Date(apiModel.itemDate);
+        newItem.itemDate = apiModel.itemDate;
         newItem.itemName = apiModel.itemName;
         newItem.itemType = apiModel.itemType;
 
