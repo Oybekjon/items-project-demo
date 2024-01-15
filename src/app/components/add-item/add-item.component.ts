@@ -18,12 +18,11 @@ export class AddItemComponent {
   constructor(private itemService: ItemService) { } 
 
   public addItem() : void{
-    this.item.itemDate = this.item.itemDate;
-    this.item.itemName = this.item.itemName;
-    this.item.itemType = this.item.itemType;
+    
     this.itemService.addItem(this.item).subscribe({
       next: response => {
         console.log("Added successful: ", response);
+        alert("Successfuly added");
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {

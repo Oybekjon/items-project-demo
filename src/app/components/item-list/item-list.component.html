@@ -8,7 +8,7 @@
       <div class="card-body">
 
         <table class="table tabl-striped table-bordered" >
-          <thead>
+          <thead class="text-center">
             <tr>
               <th>ItemId</th>
               <th>ItemName</th>
@@ -16,7 +16,7 @@
               <th>ItemType</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="text-center">
             <tr *ngFor="let item of this.items" >
               <td> {{item.itemId}} </td>
               <td> {{item.itemName}} </td>
