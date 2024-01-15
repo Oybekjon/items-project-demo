@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../services/models/item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-item',
@@ -15,18 +16,21 @@ export class AddItemComponent {
 
   public item : Item = new Item();
 
-  constructor(private itemService: ItemService) { } 
+  constructor(private itemService: ItemService, private router: Router) { } 
 
   public addItem() : void{
     
     this.itemService.addItem(this.item).subscribe({
       next: response => {
         console.log("Added successful: ", response);
-        alert("Successfuly added");
+        this.router.navigate(['/item-list']);
+        
+        
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {
         console.error("Error during delete:", err);
+        alert("error accured while adding");
         // Handle the error here
       }
     });;

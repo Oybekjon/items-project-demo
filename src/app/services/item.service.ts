@@ -4,6 +4,7 @@ import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { Item } from "./models/item";
 import { ItemModel } from "../api/models/item.model";
+import { itemPagination } from "./models/itemPagination";
 
 @Injectable({ providedIn: "root" })
 export class ItemService {
@@ -12,6 +13,12 @@ export class ItemService {
     public getItems(): Observable<Item[]> {
         return this.itemApiService.getItems()
             .pipe(map(items => items.map(item => this.toModel(item))));
+    }
+
+    public getItemsByPagination(offset: number, limit: number ): Observable<itemPagination>{
+        offset = offset * limit;
+        return this.itemApiService.getItemsByPagination(offset, limit);
+        //.pipe(map(items => items.map(item => this.toModel(item))));
     }
 
     public deleteItem(itemId: number): Observable<any> {

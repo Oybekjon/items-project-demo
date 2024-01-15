@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { ItemModel } from "./models/item.model";
+import { ItemPaginationModel } from "./models/itemPagination.model";
 
 @Injectable({providedIn: "root"})
 export class ItemApiService{
@@ -13,6 +14,11 @@ export class ItemApiService{
     public getItems(): Observable<ItemModel[]>{
         return this.client.get<ItemModel[]>("https://localhost:7274/api/Item/GetAll");
     }
+
+    public getItemsByPagination(offset: number, limit: number): Observable<ItemPaginationModel>{
+        return this.client.get<ItemPaginationModel>(`https://localhost:7274/api/Item/GetItems?offset=${offset}&limit=${limit}`);
+    }
+
 
     public deleteItem(itemId: number): Observable<any> {
         return this.client.delete(`https://localhost:7274/api/Item/DeleteById?id=${itemId}`);
