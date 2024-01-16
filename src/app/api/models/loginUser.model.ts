@@ -1,7 +1,7 @@
 export interface loginUserModel {
 
-   
-    email: string;
+    userName: string;
     password: string;
+    grantType:string | null;
 
 }

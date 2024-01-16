@@ -17,6 +17,7 @@ export class RegisterComponent   {
   
 
   public userRegister : UserRegister = new UserRegister();
+
  
 
   constructor( private userService : UserService ) {}
@@ -26,8 +27,7 @@ export class RegisterComponent   {
     
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
-        console.log("Added successful: ", response);
-        alert("Successfuly added new user");
+        console.log("Response data ", response);
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {
@@ -36,6 +36,7 @@ export class RegisterComponent   {
       }
     });;
   }
+
 
 
 

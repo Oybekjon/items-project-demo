@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col col-lg-6">
       <!-- Adding ngForm directive and ngSubmit event -->
-      <form #registerForm="ngForm" (ngSubmit)="registerUser()">
+      <form #registerForm="ngForm" >
           <div class="form-row">
             <div class="col-md-12 mb-3">
               <label for="firstName">First name</label>
@@ -28,7 +28,7 @@
               <a [routerLink]="['/login']">Log in</a>
             </div>
             <div class="mt-3">
-              <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+              <button  (click) = "registerUser()" class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
             </div>
           </div>
       </form>        
