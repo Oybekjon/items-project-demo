@@ -16,7 +16,8 @@ export class ItemApiService{
     }
 
     public getItemsByPagination(offset: number, limit: number): Observable<ItemPaginationModel>{
-        return this.client.get<ItemPaginationModel>(`https://localhost:7274/api/Item/GetItems?offset=${offset}&limit=${limit}`);
+      let result =  this.client.get<ItemPaginationModel>(`https://localhost:7274/api/Item/GetItems?offset=${offset}&limit=${limit}`);
+      return result;
     }
 
 

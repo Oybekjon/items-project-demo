@@ -20,7 +20,7 @@ export class ItemListComponent implements OnInit {
   public items: Item[] = [];
   public idToDelete: number | null = null;
   public currentPage = 1;
-  public pageSize = 10; // Or another default value
+  public pageSize = 5; // Or another default value
   public totalCount : number = 0;
 
   constructor(private itemService: ItemService) { } // Injecting service through constructor
@@ -32,7 +32,7 @@ export class ItemListComponent implements OnInit {
   getItems(page: number, pageSize: number) {
     this.itemService.getItemsByPagination(page, pageSize).subscribe(
       (data) => {
-        this.items = data.items;
+        this.items = data.itemsPagination;
         this.totalCount = data.totalCount;
         // ... other logic
       },
@@ -53,6 +53,11 @@ export class ItemListComponent implements OnInit {
   getTotalPages(): number {
     return Math.ceil(this.totalCount / this.pageSize);
   }
+
+  get pageNumbers(): number[] {
+    return Array.from({ length: this.getTotalPages() }, (_, i) => i + 1);
+  }
+  
 
 
  

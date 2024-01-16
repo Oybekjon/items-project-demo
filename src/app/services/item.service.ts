@@ -16,6 +16,8 @@ export class ItemService {
     }
 
     public getItemsByPagination(offset: number, limit: number ): Observable<itemPagination>{
+        
+        offset--;
         offset = offset * limit;
         return this.itemApiService.getItemsByPagination(offset, limit);
         //.pipe(map(items => items.map(item => this.toModel(item))));
