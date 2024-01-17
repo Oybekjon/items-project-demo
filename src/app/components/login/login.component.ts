@@ -26,7 +26,7 @@ export class LoginComponent {
         console.log("Logged successful: ", response);
         alert("Successfuly logged new user");
         if (response && response.accessToken) {
-          localStorage.setItem('token', response.accessToken);
+          localStorage.setItem('CURRENT_TOKEN', response.accessToken);
         }
         // You can handle the response here, e.g., update the UI or a list
       },

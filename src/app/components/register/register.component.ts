@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { UserRegister } from '../../services/models/userRegister';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,10 +18,11 @@ export class RegisterComponent   {
   
 
   public userRegister : UserRegister = new UserRegister();
+ 
 
  
 
-  constructor( private userService : UserService ) {}
+  constructor( private userService : UserService, private router: Router ) {}
 
 
   public registerUser() : void{
@@ -28,6 +30,7 @@ export class RegisterComponent   {
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
         console.log("Response data ", response);
+        this.router.navigate(['/login']);
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {

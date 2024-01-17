@@ -34,6 +34,7 @@ export class ItemListComponent implements OnInit {
       (data) => {
         this.items = data.itemsPagination;
         this.totalCount = data.totalCount;
+        console.log( localStorage.getItem('CURRENT_TOKEN') );
         // ... other logic
       },
       (error) => {

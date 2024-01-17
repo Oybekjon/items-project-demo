@@ -5,6 +5,8 @@ import { ItemListComponent } from './components/item-list/item-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +32,10 @@ export const routes: Routes = [
             {
                 path: "add-item",
                 component:AddItemComponent
+            },
+            {
+                path: "logout",
+                component:LogoutComponent
             },
             {
                 path: "",
