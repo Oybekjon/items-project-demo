@@ -3,16 +3,16 @@
       <ul class="nav nav-pills">
       
         <li>
-          <button class="btn btn-outline-primary me-3" [routerLink]="['/home']">Home</button>
+        <button class="btn btn-outline-primary me-3" [routerLink]="['/home']">Home</button>
         <button class="btn btn-outline-primary me-3" [routerLink]="['/item-list']">Item List</button>
-        <button  class="btn btn-outline-primary me-3" [routerLink]="['/Loading']">Loading</button>
+       
         </li>
         <li></li>
         
         <li>
           <button  class="btn btn-outline-primary me-3" *ngIf="!isLoggedIn" [routerLink]="['/login']">Login</button>
           <button class="btn btn-outline-primary me-3" *ngIf="!isLoggedIn" [routerLink]="['/register']">Register</button>
-          <button (click)="showLogOutModal()" class="btn btn-outline-primary me-3" *ngIf="isLoggedIn" [routerLink]="['/logout']">Log Out</button>
+          <button (click)="showLogOutModal()" class="btn btn-outline-primary me-3" *ngIf="isLoggedIn"  >Log Out</button>
          
         </li>
 
@@ -33,7 +33,7 @@
                 <p>Do you want to log out the account?</p>
             </div>
             <div class="modal-footer">
-                <button  (click)="saveLogOutChanges()" class="btn btn-primary">Log out</button>
+                <button  (click)="saveLogOutChanges()" class="btn btn-primary" [routerLink]="['/login']">Log out</button>
                 <button type="button" (click)="hideLogOutModal()" class="btn btn-secondary"
                     data-dismiss="modal">Close</button>
             </div>

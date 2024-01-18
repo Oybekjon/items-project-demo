@@ -1,25 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../models/loadingService';
+
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.less'
 })
-export class LoadingComponent {
+export class LoadingComponent implements OnInit{
 
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   constructor(private loadingService: LoadingService) {}
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.loadingService.loading$.subscribe(
       (loading) => {
         this.isLoading = loading;
       }
     );
   }
+
+  
 }

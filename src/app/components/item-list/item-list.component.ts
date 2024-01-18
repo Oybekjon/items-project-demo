@@ -4,6 +4,7 @@ import { Item } from '../../services/models/item';
 import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoadingService } from '../models/loadingService';
 
 
 
@@ -20,10 +21,10 @@ export class ItemListComponent implements OnInit {
   public items: Item[] = [];
   public idToDelete: number | null = null;
   public currentPage = 1;
-  public pageSize = 5; // Or another default value
+  public pageSize = 4; // Or another default value
   public totalCount : number = 0;
 
-  constructor(private itemService: ItemService) { } // Injecting service through constructor
+  constructor(private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
 
   ngOnInit() {
     
@@ -31,11 +32,14 @@ export class ItemListComponent implements OnInit {
   }
   
   getItems(page: number, pageSize: number) {
+    
     this.itemService.getItemsByPagination(page, pageSize).subscribe(
       (data) => {
+        
         this.items = data.itemsPagination;
         this.totalCount = data.totalCount;
         console.log( localStorage.getItem('CURRENT_TOKEN') );
+      
         // ... other logic
       },
       (error) => {
@@ -65,6 +69,7 @@ export class ItemListComponent implements OnInit {
  
 
   public deleteItem(): void {
+    
     if (typeof this.idToDelete === "number" && this.idToDelete > 0) {
       this.itemService.deleteItem(this.idToDelete).subscribe({
         next: response => {

@@ -5,6 +5,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { UserRegister } from '../../services/models/userRegister';
 import { Router } from '@angular/router';
+import { LoadingService } from '../models/loadingService';
 
 @Component({
   selector: 'app-register',
@@ -22,14 +23,16 @@ export class RegisterComponent   {
 
  
 
-  constructor( private userService : UserService, private router: Router ) {}
+  constructor( private userService : UserService, private router: Router, private loadingService: LoadingService ) {}
 
 
   public registerUser() : void{
-    
+    this.loadingService.show();
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
+        
         console.log("Response data ", response);
+        this.loadingService.hide()
         this.router.navigate(['/login']);
         // You can handle the response here, e.g., update the UI or a list
       },

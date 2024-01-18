@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../services/models/item';
 import { Router } from '@angular/router';
+import { LoadingService } from '../models/loadingService';
 
 @Component({
   selector: 'app-add-item',
@@ -16,12 +17,13 @@ export class AddItemComponent {
 
   public item : Item = new Item();
 
-  constructor(private itemService: ItemService, private router: Router) { } 
+  constructor(private itemService: ItemService, private router: Router, private loadingService: LoadingService) { } 
 
   public addItem() : void{
-    
+    this.loadingService.show();
     this.itemService.addItem(this.item).subscribe({
       next: response => {
+        this.loadingService.hide();
         console.log("Added successful: ", response);
         this.router.navigate(['/item-list']);
         
