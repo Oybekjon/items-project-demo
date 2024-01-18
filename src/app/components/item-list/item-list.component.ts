@@ -26,6 +26,7 @@ export class ItemListComponent implements OnInit {
   constructor(private itemService: ItemService) { } // Injecting service through constructor
 
   ngOnInit() {
+    
     this.getItems(this.currentPage, this.pageSize);
   }
   

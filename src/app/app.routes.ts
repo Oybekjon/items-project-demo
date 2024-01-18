@@ -8,6 +8,8 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
+import { LoadingComponent } from './components/loading/loading.component';
+
 export const routes: Routes = [
     {
         path: "",
@@ -16,6 +18,10 @@ export const routes: Routes = [
             {
                 path: "home",
                 component:HomeComponent
+            },
+            {
+                path: "header",
+                component:HeaderComponent
             },
             {
                 path: "item-list",
@@ -32,6 +38,10 @@ export const routes: Routes = [
             {
                 path: "add-item",
                 component:AddItemComponent
+            },
+            {
+                path: "loading",
+                component:LoadingComponent
             },
             {
                 path: "logout",
