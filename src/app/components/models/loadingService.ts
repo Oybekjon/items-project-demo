@@ -24,7 +24,7 @@ constructor( private router: Router){}
 */
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -45,6 +45,7 @@ export class LoadingService {
   public show():void {
     this.loadingSubject.next(true);
   }
+}
 /*
   public async showLoading(delay: number = 0) : Promise<void>
   {
@@ -83,4 +84,4 @@ export class LoadingService {
   
 
  
-}
+//}

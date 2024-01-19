@@ -5,6 +5,7 @@ import { ItemService } from '../../services/item.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../models/loadingService';
+import { LoadingComponent } from '../loading/loading.component';
 
 
 
@@ -12,7 +13,7 @@ import { LoadingService } from '../models/loadingService';
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [RouterModule, FormsModule,CommonModule],
+  imports: [RouterModule, FormsModule,CommonModule, LoadingComponent],
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.less'] // Corrected to styleUrls
 })
@@ -23,6 +24,7 @@ export class ItemListComponent implements OnInit {
   public currentPage = 1;
   public pageSize = 4; // Or another default value
   public totalCount : number = 0;
+  public isLoading : boolean = false;
 
   constructor(private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
 
@@ -33,8 +35,12 @@ export class ItemListComponent implements OnInit {
   
   getItems(page: number, pageSize: number) {
     
+    this.isLoading = true;
+
     this.itemService.getItemsByPagination(page, pageSize).subscribe(
       (data) => {
+
+        this.isLoading = false;
         
         this.items = data.itemsPagination;
         this.totalCount = data.totalCount;
@@ -70,10 +76,12 @@ export class ItemListComponent implements OnInit {
 
   public deleteItem(): void {
     
+    this.isLoading = true;
+
     if (typeof this.idToDelete === "number" && this.idToDelete > 0) {
       this.itemService.deleteItem(this.idToDelete).subscribe({
         next: response => {
-         
+          this.isLoading = false;
           this.getItems(this.currentPage, this.pageSize);
           // You can handle the response here, e.g., update the UI or a list
         },

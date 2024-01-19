@@ -1,6 +1,5 @@
 <div class="row justify-content-center h-100 p-3">
     <div class="col col-lg-6">
-      
             <div class="form-group">
               <div class="col-md-12 mb-3">
                 <label for="validationDefault03">Email</label>
@@ -20,8 +19,11 @@
 
             <div class="mt-3">
               <button  (click) = "LoginUser()" type="submit" class="btn btn-primary ">Log in</button>
-            </div>
-
-              
+            </div>    
     </div>
+</div>
+
+
+<div class="container" *ngIf="isLoading">
+   <app-loading></app-loading>
 </div>

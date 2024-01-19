@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../models/loadingService';
 
 import { CommonModule } from '@angular/common';
+import { LoadingOrchestrator } from '../models/loading-orchestrator';
 
 
 @Component({
@@ -13,17 +14,25 @@ import { CommonModule } from '@angular/common';
 })
 export class LoadingComponent implements OnInit{
 
-  isLoading: boolean = true;
+  public isLoading: boolean = false;
+ 
 
   constructor(private loadingService: LoadingService) {}
 
   ngOnInit() 
   {
+
+    LoadingOrchestrator.signaller.subscribe((x) => {
+      this.isLoading = x;
+    });
+
+    /*
     this.loadingService.loading$.subscribe(
       (loading) => {
         this.isLoading = loading;
       }
     );
+    */
   }
 
   

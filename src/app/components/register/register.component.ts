@@ -6,11 +6,12 @@ import { UserService } from '../../services/user.service';
 import { UserRegister } from '../../services/models/userRegister';
 import { Router } from '@angular/router';
 import { LoadingService } from '../models/loadingService';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink,RouterModule, FormsModule,CommonModule],
+  imports: [RouterLink,RouterModule, FormsModule,CommonModule,LoadingComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.less'
 })
@@ -19,7 +20,7 @@ export class RegisterComponent   {
   
 
   public userRegister : UserRegister = new UserRegister();
- 
+  public isLoading : boolean = false;
 
  
 
@@ -27,10 +28,11 @@ export class RegisterComponent   {
 
 
   public registerUser() : void{
-    this.loadingService.show();
+    this.isLoading = true;
+    //this.loadingService.show();
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
-        
+        this.isLoading = false;
         console.log("Response data ", response);
         this.loadingService.hide()
         this.router.navigate(['/login']);
