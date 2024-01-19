@@ -8,6 +8,7 @@ import { AuthenticationOrchestrator } from '../models/authentication-orchestrato
 import { LoadingService } from '../models/loadingService';
 import { LoadingOrchestrator } from '../models/loading-orchestrator';
 import { LoadingComponent } from '../loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class LoginComponent {
   public isLoading : boolean = false;
  
 
-  constructor( private userService : UserService, private router: Router, private loadingService: LoadingService ) {}
+  constructor( private toastr: ToastrService,private userService : UserService, private router: Router, private loadingService: LoadingService ) {}
 
   public LoginUser(){
 
@@ -36,6 +37,7 @@ export class LoginComponent {
         this.isLoading = false;
         //this.loadingService.hide();
         console.log("Logged successful: ", response);
+        this.toastr.success('Hello world!', 'Toastr fun!');
         //LoadingOrchestrator.signaller.next(false);
         AuthenticationOrchestrator.signaller.next(true);
         

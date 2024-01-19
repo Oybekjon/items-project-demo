@@ -37,6 +37,9 @@ import { TokenInterceptor } from './api/interceptors/token.interceptor';
 import { routes } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { httpInterceptor } from './api/interceptors/http.interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,6 +47,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideHttpClient(withInterceptors([httpInterceptor])),
+    provideAnimations(), // required animations providers
+    provideToastr(), // Toastr providers
   
   ]
 };

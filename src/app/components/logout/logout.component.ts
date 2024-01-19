@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-logout',
@@ -10,11 +11,12 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent {
 
-  constructor( private router: Router){};
+  constructor(  private toastr: ToastrService,private router: Router){};
 
   public removeToken() {
     
     localStorage.removeItem('CURRENT_TOKEN');
+    this.toastr.success( "You have been log out" );
     this.router.navigate(['/login']);
   }
 
