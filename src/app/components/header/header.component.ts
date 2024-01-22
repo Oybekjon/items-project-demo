@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthenticationOrchestrator } from '../models/authentication-orchestrator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public modalLogOutVisible: boolean = false;
   public isLoggedIn: boolean = false;
 
-  constructor(private toastr: ToastrService){};
+  constructor(private toastr: ToastrService,private router: Router){};
 
   public showLogOutModal(): void {
     this.modalLogOutVisible = true;
@@ -27,6 +27,8 @@ export class HeaderComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    
+    this.check();
     const token = localStorage.getItem('CURRENT_TOKEN');
     if (token) {
       this.isLoggedIn = true;
@@ -34,6 +36,22 @@ export class HeaderComponent implements OnInit {
     AuthenticationOrchestrator.signaller.subscribe((x) => {
       this.isLoggedIn = x;
     });
+    
+  }
+
+  check():void
+  {
+    let token = localStorage.getItem("CURRENT_TOKEN");
+    
+    if(token == null)
+    {
+      this.router.navigate(['/register']);
+    }
+    else
+    {
+      this.router.navigate(['/item-list']);
+    }
+
   }
 
 
