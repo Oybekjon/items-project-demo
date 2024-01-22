@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationOrchestrator } from '../models/authentication-orchestrator';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent implements OnInit {
   public modalLogOutVisible: boolean = false;
   public isLoggedIn: boolean = false;
+
+  constructor(private toastr: ToastrService){};
 
   public showLogOutModal(): void {
     this.modalLogOutVisible = true;
@@ -36,10 +39,12 @@ export class HeaderComponent implements OnInit {
 
 
   public saveLogOutChanges(): void {
+    this.toastr.success("Successfully logged out");
     localStorage.removeItem('CURRENT_TOKEN');
     this.isLoggedIn = false;
     AuthenticationOrchestrator.signaller.next(false);
     this.modalLogOutVisible = false;
+
   }
 
 

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../models/loadingService';
 import { LoadingComponent } from '../loading/loading.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -26,7 +27,7 @@ export class ItemListComponent implements OnInit {
   public totalCount : number = 0;
   public isLoading : boolean = false;
 
-  constructor(private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
+  constructor(private toastr: ToastrService,private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
 
   ngOnInit() {
     
@@ -50,6 +51,7 @@ export class ItemListComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching items', error);
+        this.isLoading = false;
       }
     );
   }
@@ -81,13 +83,26 @@ export class ItemListComponent implements OnInit {
     if (typeof this.idToDelete === "number" && this.idToDelete > 0) {
       this.itemService.deleteItem(this.idToDelete).subscribe({
         next: response => {
+
           this.isLoading = false;
           this.getItems(this.currentPage, this.pageSize);
+            
+          if(response == 0 || response == '0')
+          {
+            this.toastr.error("No such kind of item");
+          }
+          else
+          {
+            this.toastr.success("Successfully deleted");
+          }
+          
           // You can handle the response here, e.g., update the UI or a list
         },
         error: err => {
+          this.isLoading = false;
           console.error("Error during delete:", err);
-          alert("Deletion was unsuccessful" );
+          this.toastr.error("Error occurred while deleting");
+          
           // Handle the error here
         }
       });

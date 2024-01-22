@@ -20,43 +20,63 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
 
-  public userRegister : UserLogin = new UserLogin();
+  public userLogin : UserLogin = new UserLogin();
   public isLoading : boolean = false;
+  public isValidEmail : boolean = false;
+  public isValidPassword : boolean = false;
  
 
   constructor( private toastr: ToastrService,private userService : UserService, private router: Router, private loadingService: LoadingService ) {}
 
   public LoginUser(){
 
+    if(!this.checkInputs())
+      return;
+
     //this.loadingService.show();
     //LoadingOrchestrator.signaller.next(true);
     this.isLoading = true;
 
-    this.userService.loginUser(this.userRegister).subscribe({
+    this.userService.loginUser(this.userLogin).subscribe({
       next: response => {
         this.isLoading = false;
-        //this.loadingService.hide();
+      
         console.log("Logged successful: ", response);
-        this.toastr.success('Hello world!', 'Toastr fun!');
-        //LoadingOrchestrator.signaller.next(false);
-        AuthenticationOrchestrator.signaller.next(true);
+        this.toastr.success("Successfully loged in");
         
+        AuthenticationOrchestrator.signaller.next(true);
       
         if (response && response.accessToken) {
           localStorage.setItem('CURRENT_TOKEN', response.accessToken);
         }
         
         this.router.navigate(['/item-list']);
-        
-
        
       },
       error: err => {
-        this.loadingService.hide();
+        this.isLoading = false;
+       
+        this.toastr.error("Error occured while loging in");
         console.error("Error during delete:", err);
         // Handle the error here
       }
     });;
+  }
+
+
+  checkInputs():boolean
+  {
+    let counter  = 0;
+    if(!this.userLogin.userName.endsWith("@gmail.com"))
+    {
+      ++counter;
+      this.isValidEmail = true;
+    }
+ 
+    if(counter == 0)
+      return true;
+
+      return false;
   }
 
 }

@@ -31,11 +31,14 @@
   </div>
 </div>
 
-<div class="mt-3 text-center">
-  <label class="form-label m-3">Enter id</label>
-  <input [(ngModel)]="idToDelete" type="number">
-  <button (click)="deleteItem()" class="btn btn-danger m-3"> Delete </button>
-</div>
+<form #deleteForm="ngForm">
+  <div class="mt-3 text-center">
+      <label class="form-label m-3">Enter id</label>
+      <input [(ngModel)]="idToDelete" type="number" name="idToDelete" required #idToDeleteInput="ngModel">
+      <button (click)="deleteItem()" class="btn btn-danger m-3" [disabled]="!deleteForm.valid">Delete</button>
+  </div>
+</form>
+
 
 <div class="mt-3">
   <nav aria-label="Page navigation example">

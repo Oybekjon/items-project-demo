@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { LoadingService } from '../models/loadingService';
 import { LoadingComponent } from '../loading/loading.component';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-item',
@@ -20,13 +21,14 @@ export class AddItemComponent {
   public item : Item = new Item();
   public isLoading : Boolean = false;
 
-  constructor(private itemService: ItemService, private router: Router, private loadingService: LoadingService) { } 
+  constructor(private toastr: ToastrService,private itemService: ItemService, private router: Router, private loadingService: LoadingService) { } 
 
   public addItem() : void{
     this.isLoading = true;
     //this.loadingService.show();
     this.itemService.addItem(this.item).subscribe({
       next: response => {
+        this.toastr.success("Successfully added");
         //this.loadingService.hide();
         console.log("Added successful: ", response);
         this.isLoading = false;
@@ -36,8 +38,9 @@ export class AddItemComponent {
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {
+        this.isLoading = false;
         console.error("Error during delete:", err);
-        alert("error accured while adding");
+        this.toastr.error("Error occurred while adding");
         // Handle the error here
       }
     });;
