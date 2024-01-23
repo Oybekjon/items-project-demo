@@ -21,12 +21,22 @@ import { ToastrService } from 'ngx-toastr';
 export class ItemListComponent implements OnInit {
 
   public items: Item[] = [];
-  public idToDelete: number | null = null;
+  public idToDelete: number = 0;
+  public idToUpdate: number = 0;
   public currentPage = 1;
-  public pageSize = 4; // Or another default value
+  public pageSize = 3; // Or another default value
   public totalCount: number = 0;
   public isLoading: boolean = false;
   public isPaginationVisible = true;
+  public item : Item = new Item()
+ 
+  public modalDeleteVisible: boolean = false;
+  public modalEditVisible : boolean = false;
+
+  public isValidName : boolean = false;
+  public isValidType : boolean = false;
+  public isValidDate : boolean = false;
+  
 
   constructor(private router: Router, private toastr: ToastrService, private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
 
@@ -92,18 +102,117 @@ export class ItemListComponent implements OnInit {
   }
 
 
+  public showEditModal(item:Item) : void
+  {
 
+    this.modalEditVisible = true;
+    this.idToUpdate = item.itemId;
+    this.item = item;
 
+  }
+  public hideEditModal() : void
+  {
+    this.modalEditVisible = false;
+  }
 
-  public deleteItem(): void {
+  public hideEditModalForEdit():void
+  {
+    this.isValidName= false;
+    this.isValidType = false;
+    this.isValidDate= false;
+
+    if(!this.checkInputs())
+      return;
+
     this.isLoading = true;
+    //this.loadingService.show();
+    this.item.itemId = this.idToUpdate;
+    console.log(this.item);
+    this.itemService.updateItem(this.item).subscribe({
+      next: response => {
+        this.toastr.success("Successfully updated");
+        this.item.itemDate = null;
+        this.item.itemId = 0;
+        this.item.itemName = "";
+        this.item.itemType = 0;
+        //this.loadingService.hide();
+        console.log("updated successful: ", response);
+        this.isLoading = false;
+        this.getItems(this.currentPage, this.pageSize);
+        
+        
+        // You can handle the response here, e.g., update the UI or a list
+      },
+      error: err => {
+        console.log(this.item);
+        this.isLoading = false;
+        console.error("Error during delete:", err);
+        this.toastr.error("Error occurred while adding");
+        // Handle the error here
+        this.item.itemDate = null;
+        this.item.itemId = 0;
+        this.item.itemName = "";
+        this.item.itemType = 0;
+      }
+    });;
 
-    if (typeof this.idToDelete === "number" && this.idToDelete > 0) {
-      this.itemService.deleteItem(this.idToDelete).subscribe({
+    this.modalEditVisible = false;
+
+  }
+
+  public checkInputs():boolean
+  {
+    let counter  = 0;
+    if(this.item.itemDate == null)
+    {
+      ++counter;
+      this.isValidDate = true;
+    }
+    if(this.item.itemName == "")
+    {
+      ++counter;
+      this.isValidName = true;
+    }
+    if (this.item.itemType === 0 || this.item.itemType === null ) {
+      ++counter;
+      this.isValidType = true;
+    }
+    
+    if(counter == 0)
+      return true;
+
+      return false;
+  }
+
+  public editItem( ) : void
+  {
+
+  }
+
+  public showDeleteModal(son:number) : void
+  {
+    this.modalDeleteVisible = true;
+    this.idToDelete = son;
+   
+  }
+  public hideDeleteModal(son:number): void {
+    this.modalDeleteVisible = false;
+    if(son == 0 || this.idToDelete == 0)
+      return;
+    this.deleteItem(this.idToDelete);
+  }
+
+
+  public deleteItem(id : number): void
+  {
+  
+      this.isLoading = true;
+
+      this.itemService.deleteItem(id).subscribe({
         next: response => {
           this.isLoading = false;
           
-          this.idToDelete = null; // Reset the idToDelete after successful deletion
+          this.idToDelete = 0; // Reset the idToDelete after successful deletion
           if ((this.totalCount - 1) % this.pageSize == 0) {
             this.changePage(this.currentPage - 1);
           }
@@ -118,14 +227,14 @@ export class ItemListComponent implements OnInit {
           }
         },
         error: err => {
+          this.idToDelete = 0;
           this.isLoading = false;
           console.error("Error during delete:", err);
           this.toastr.error("Error occurred while deleting");
         }
       });
-    } else {
-      console.log("Invalid idToDelete value");
-    }
+      
+   
   }
 
 

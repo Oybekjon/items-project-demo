@@ -3,8 +3,8 @@
       <ul class="nav nav-pills">
       
         <li>
-        <button class="btn btn-outline-primary me-3" [routerLink]="['/home']">Home</button>
-        <button class="btn btn-outline-primary me-3" [routerLink]="['/item-list']">Item List</button>
+        
+        <button class="btn btn-outline-primary me-3" [routerLink]="['/item-list']" *ngIf="isLoggedIn">Item List</button>
        
         </li>
         <li></li>

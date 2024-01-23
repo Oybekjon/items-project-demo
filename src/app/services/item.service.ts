@@ -37,6 +37,15 @@ export class ItemService {
         });
     }
 
+    public updateItem(item : Item): Observable<any> {
+
+        return this.itemApiService.updateItem({
+            itemDate: item.itemDate,
+            itemId: item.itemId,
+            itemName: item.itemName,
+            itemType: item.itemType
+        });
+    }
 
     public toModel(apiModel: ItemModel): Item {
         const newItem = new Item();

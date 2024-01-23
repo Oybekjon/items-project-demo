@@ -43,6 +43,7 @@ export class RegisterComponent   {
 
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
+        
         this.isLoading = false;
         this.toastr.success("Successfully registered");
         
@@ -51,9 +52,20 @@ export class RegisterComponent   {
         // You can handle the response here, e.g., update the UI or a list
       },
       error: err => {
+        
         this.isLoading = false;
-        console.error("Error during delete:", err);
-        this.toastr.error("Error occurred while registering!!!");
+        if(err.status == 404 || err.status == '404')
+        {
+          this.toastr.error("This email has been already registered");
+        }
+        else
+        {
+          this.toastr.error("Error occurred while registering (password and email should not be same)");
+        }
+
+
+        console.error("Error during delete:", err.status);
+        
         // Handle the error here
       }
     });;
