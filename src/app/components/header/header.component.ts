@@ -39,9 +39,9 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  check():void
+  public check():void
   {
-    let token = localStorage.getItem("CURRENT_TOKEN");
+    const token = localStorage.getItem("CURRENT_TOKEN");
     
     if(token == null)
     {
@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
     {
       this.router.navigate(['/item-list']);
     }
+    return;
 
   }
 

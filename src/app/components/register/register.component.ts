@@ -40,15 +40,12 @@ export class RegisterComponent   {
       return;
 
     this.isLoading = true;
-    //this.loadingService.show();
-
-
 
     this.userService.addUser(this.userRegister).subscribe({
       next: response => {
         this.isLoading = false;
         this.toastr.success("Successfully registered");
-        console.log("Response data ", response);
+        
         
         this.router.navigate(['/login']);
         // You can handle the response here, e.g., update the UI or a list
