@@ -4,14 +4,14 @@ import { Observable } from "rxjs";
 import { ItemModel } from "./models/item.model";
 import { ItemPaginationModel } from "./models/itemPagination.model";
 
-@Injectable({providedIn: "root"})
-export class ItemApiService{
-    private client:HttpClient = inject(HttpClient);
+@Injectable({ providedIn: "root" })
+export class ItemApiService {
+    private client: HttpClient = inject(HttpClient);
 
     private apiUrl = 'https://localhost:7274/api/Item';
     private api = 'https://localhost:7274/api/Item/DeleteById?id=9';
 
-    public getItems(): Observable<ItemModel[]>{
+    public getItems(): Observable<ItemModel[]> {
         return this.client.get<ItemModel[]>("https://localhost:7274/api/Item/GetAll");
     }
 
@@ -25,11 +25,11 @@ export class ItemApiService{
         return this.client.delete(`https://localhost:7274/api/Item/DeleteById?id=${itemId}`);
     }
     
-    public addItem(addItem : ItemModel ): Observable<any> {
+    public addItem(addItem: ItemModel): Observable<any> {
         return this.client.post("https://localhost:7274/api/Item/CreateNew", addItem, { headers: { 'Content-Type': 'application/json' } })
     }
 
-    public updateItem(updateItem : ItemModel ): Observable<any> {
+    public updateItem(updateItem: ItemModel): Observable<any> {
         return this.client.put("https://localhost:7274/api/Item/Update", updateItem, { headers: { 'Content-Type': 'application/json' } })
     }
 

@@ -10,9 +10,5 @@ import { HeaderComponent } from '../header/header.component';
   styleUrl: './layout.component.less'
 })
 export class LayoutComponent {
-
   constructor(private router: Router){};
-
-  
-
 }

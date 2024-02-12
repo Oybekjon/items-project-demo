@@ -11,19 +11,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LogoutComponent {
 
-  constructor(  private toastr: ToastrService,private router: Router){};
+  constructor(private toastr: ToastrService, private router: Router) { };
 
   public removeToken() {
-    
+
     localStorage.removeItem('CURRENT_TOKEN');
-    this.toastr.success( "You have been log out" );
+    this.toastr.success("You have been log out");
     this.router.navigate(['/login']);
   }
 
-  public goToItemList()
-  {
+  public goToItemList() {
     this.router.navigate(['/item-list']);
   }
-
-
 }

@@ -45,7 +45,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     provideRouter(routes),
-    provideHttpClient(),
     provideHttpClient(withInterceptors([httpInterceptor])),
     provideAnimations(), // required animations providers
     provideToastr(), // Toastr providers

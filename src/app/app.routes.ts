@@ -15,34 +15,33 @@ export const routes: Routes = [
         path: "",
         component: LayoutComponent,
         children: [
-           
             {
                 path: "header",
-                component:HeaderComponent
+                component: HeaderComponent
             },
             {
                 path: "item-list",
-                component:ItemListComponent
+                component: ItemListComponent
             },
             {
                 path: "register",
-                component:RegisterComponent
+                component: RegisterComponent
             },
             {
                 path: "login",
-                component:LoginComponent
+                component: LoginComponent
             },
             {
                 path: "add-item",
-                component:AddItemComponent
+                component: AddItemComponent
             },
             {
                 path: "loading",
-                component:LoadingComponent
+                component: LoadingComponent
             },
             {
                 path: "logout",
-                component:LogoutComponent
+                component: LogoutComponent
             },
             
             {
@@ -50,7 +49,6 @@ export const routes: Routes = [
                 redirectTo: "/register",
                 pathMatch: "full"
             }
-
         ]
     }
 ];

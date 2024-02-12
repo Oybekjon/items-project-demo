@@ -12,28 +12,19 @@ import { LoadingOrchestrator } from '../models/loading-orchestrator';
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.less'
 })
-export class LoadingComponent implements OnInit{
+export class LoadingComponent implements OnInit {
 
   public isLoading: boolean = false;
- 
 
-  constructor(private loadingService: LoadingService) {}
 
-  ngOnInit() 
-  {
+  constructor(private loadingService: LoadingService) { }
+
+  public ngOnInit() {
 
     LoadingOrchestrator.signaller.subscribe((x) => {
       this.isLoading = x;
     });
-
-    /*
-    this.loadingService.loading$.subscribe(
-      (loading) => {
-        this.isLoading = loading;
-      }
-    );
-    */
   }
 
-  
+
 }

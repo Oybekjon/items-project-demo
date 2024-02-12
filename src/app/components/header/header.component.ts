@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, FormsModule,CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.less'
 })
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   public modalLogOutVisible: boolean = false;
   public isLoggedIn: boolean = false;
 
-  constructor(private toastr: ToastrService,private router: Router){};
+  constructor(private toastr: ToastrService, private router: Router) { };
 
   public showLogOutModal(): void {
     this.modalLogOutVisible = true;
@@ -39,12 +39,10 @@ export class HeaderComponent implements OnInit {
     
   }
 
-  public check():void
-  {
+  public check(): void {
     const token = localStorage.getItem("CURRENT_TOKEN");
     
-    if(token == null)
-    {
+    if (token == null) {
       this.router.navigate(['/register']);
     }
     else
@@ -52,10 +50,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/item-list']);
     }
     return;
-
   }
-
-
 
   public saveLogOutChanges(): void {
     this.toastr.success("Successfully logged out");
@@ -63,9 +58,5 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn = false;
     AuthenticationOrchestrator.signaller.next(false);
     this.modalLogOutVisible = false;
-
   }
-
-
-
 }

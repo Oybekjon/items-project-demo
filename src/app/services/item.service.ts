@@ -27,7 +27,7 @@ export class ItemService {
         return this.itemApiService.deleteItem(itemId);
     }
 
-    public addItem(item : Item): Observable<any> {
+    public addItem(item: Item): Observable<any> {
 
         return this.itemApiService.addItem({
             itemDate: item.itemDate,
@@ -53,7 +53,6 @@ export class ItemService {
         newItem.itemDate = apiModel.itemDate;
         newItem.itemName = apiModel.itemName;
         newItem.itemType = apiModel.itemType;
-
         return newItem;
 
     }

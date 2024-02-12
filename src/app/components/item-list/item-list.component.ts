@@ -38,7 +38,7 @@ export class ItemListComponent implements OnInit {
   public isValidDate : boolean = false;
   
 
-  constructor(private router: Router, private toastr: ToastrService, private itemService: ItemService, private loadingService: LoadingService) { } // Injecting service through constructor
+  constructor(private router: Router, private toastr: ToastrService, private itemService: ItemService /* Removed unnecessary service */) { } // Injecting service through constructor
 
   public ngOnInit(): void {
 
@@ -81,7 +81,6 @@ export class ItemListComponent implements OnInit {
     if(Math.ceil(totalCount1 / pageSize1) == 1)
     {
       this.isPaginationVisible = false;
-
     }
   }
 
