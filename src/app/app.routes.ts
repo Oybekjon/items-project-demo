@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
 import { LoadingComponent } from './components/loading/loading.component';
+import { KendoDemoComponent } from './components/kendo-demo/kendo-demo.component';
 
 export const routes: Routes = [
     {
@@ -43,7 +44,11 @@ export const routes: Routes = [
                 path: "logout",
                 component: LogoutComponent
             },
-            
+            {
+                path: "kendo-demo",
+                component: KendoDemoComponent
+            },
+
             {
                 path: "",
                 redirectTo: "/register",

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    
+
     this.check();
     const token = localStorage.getItem('CURRENT_TOKEN');
     if (token) {
@@ -36,18 +36,14 @@ export class HeaderComponent implements OnInit {
     AuthenticationOrchestrator.signaller.subscribe((x) => {
       this.isLoggedIn = x;
     });
-    
+
   }
 
   public check(): void {
     const token = localStorage.getItem("CURRENT_TOKEN");
-    
+
     if (token == null) {
       this.router.navigate(['/register']);
-    }
-    else
-    {
-      this.router.navigate(['/item-list']);
     }
     return;
   }

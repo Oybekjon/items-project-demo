@@ -1,0 +1,30 @@
+<p>kendo-demo works!</p>
+<kendo-grid 
+    [data]="itemsView" 
+    [loading]="loading" 
+    [pageSize]="gridState.take" 
+    [skip]="gridState.skip"
+    [filter]="gridState.filter" 
+    [pageable]="true" 
+    [sortable]="true" 
+    filterable="menu"
+    (dataStateChange)="itemsDataStateChange($event)">
+    <kendo-grid-column field="itemId" title="Item ID">
+    </kendo-grid-column>
+    <kendo-grid-column field="itemName" title="Item Name">
+    </kendo-grid-column>
+    <kendo-grid-column field="itemType" title="Item Type">
+    </kendo-grid-column>
+    <kendo-grid-column format="{0:MM/dd/yyyy h:mm a}" field="itemDate" title="Item Date">
+        <ng-template kendoGridFilterMenuTemplate let-dataItem let-filter let-column="column"
+            let-filterService="filterService">
+            <kendo-grid-date-filter-menu [column]="column" [filter]="filter" [filterService]="filterService">
+                <kendo-filter-eq-operator></kendo-filter-eq-operator>
+                <kendo-filter-gte-operator></kendo-filter-gte-operator>
+                <kendo-filter-gt-operator></kendo-filter-gt-operator>
+                <kendo-filter-lte-operator></kendo-filter-lte-operator>
+                <kendo-filter-lt-operator></kendo-filter-lt-operator>
+            </kendo-grid-date-filter-menu>
+        </ng-template>
+    </kendo-grid-column>
+</kendo-grid>
